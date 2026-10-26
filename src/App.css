@@ -1,0 +1,870 @@
+.app {
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: calc(var(--space-sm) + var(--safe-top)) var(--gutter) calc(112px + var(--safe-bottom));
+  overflow-x: clip;
+}
+
+/* 탭바 + (있으면) 하단 CTA 높이만큼 비워 둔다 */
+.app.has-tabbar {
+  padding-bottom: calc(var(--tabbar-h) + 104px + var(--safe-bottom));
+}
+
+/* ---- 화면 공통 ---- */
+.screen {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.screen-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: 20px 0 var(--space-sm);
+}
+
+/* display: 56px · 800 · -0.04em (좁은 화면에서는 줄여서) */
+.display {
+  margin: 0;
+  font-size: clamp(36px, 10.5vw, 56px);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+/* title: 24px · 700 · -0.4px */
+.title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.4px;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--gray-700);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.muted {
+  color: var(--gray-500);
+  font-size: 14px;
+}
+
+.section-label {
+  margin: var(--space-md) 0 0;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.link {
+  /* 글자는 작아도 누르는 영역은 넉넉하게 */
+  margin: -10px -8px;
+  padding: 10px 8px;
+  border: 0;
+  background: none;
+  color: var(--primary);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ---- BlueCTA: 화면 하단 고정, 화면당 하나 ---- */
+.btn {
+  width: 100%;
+  padding: 14px;
+  border: 0;
+  border-radius: var(--rounded-lg);
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.6;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  color: var(--white);
+  background: var(--primary);
+}
+
+.btn-primary:disabled {
+  background: var(--neutral);
+  color: var(--gray-400);
+  cursor: default;
+}
+
+.bottom-cta {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--tabbar-h) + var(--safe-bottom));
+  z-index: 10;
+  width: 100%;
+  max-width: var(--app-max);
+  padding: var(--space-md) var(--gutter);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0), var(--white) 28%);
+  transform: translateX(-50%);
+}
+
+.detail .bottom-cta {
+  bottom: 0;
+  padding-bottom: calc(var(--space-md) + var(--safe-bottom));
+}
+
+/* 넓은 화면에서는 CTA가 너무 길어 보이지 않게 */
+@media (min-width: 768px) {
+  .bottom-cta .btn {
+    display: block;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+}
+
+.btn-text {
+  margin-top: var(--space-sm);
+  padding: var(--space-sm) 12px;
+  border: 0;
+  background: none;
+  color: var(--primary);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ---- 칩: 선택은 잉크색으로 (파랑은 CTA에만) ---- */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.chips-scroll {
+  flex-wrap: nowrap;
+  margin: 0 calc(var(--gutter) * -1);
+  padding: 0 var(--gutter);
+  overflow-x: auto;
+  scroll-padding: 0 var(--gutter);
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.chips-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  flex-shrink: 0;
+  min-height: 40px;
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--neutral);
+  color: var(--gray-700);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.chip-on {
+  background: var(--ink);
+  color: var(--white);
+}
+
+/* ---- 배지 ---- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+}
+
+.badge-red {
+  background: var(--red-weak);
+  color: var(--red);
+}
+
+.badge-blue {
+  background: var(--primary-weak);
+  color: var(--primary);
+}
+
+.badge-gray {
+  background: var(--neutral);
+  color: var(--gray-700);
+}
+
+/* ---- FinanceCard: 숫자 하나를 크게, 설명은 아래 회색 ---- */
+.finance-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 24px;
+  border-radius: var(--rounded-md);
+  background: var(--neutral);
+}
+
+.finance-card-label {
+  color: var(--gray-700);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.finance-card-value {
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.25;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+.finance-card-value.accent {
+  color: var(--primary);
+}
+
+.finance-card-value.danger {
+  color: var(--red);
+}
+
+.finance-card-desc {
+  margin: 0;
+  color: var(--gray-500);
+  font-size: 14px;
+}
+
+/* ---- AmountRow: 항목명 왼쪽, 값 오른쪽 끝 ---- */
+.rows {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.amount-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: 14px 0;
+}
+
+.amount-row dt {
+  flex-shrink: 0;
+  color: var(--gray-700);
+  font-size: 15px;
+}
+
+.amount-row dd {
+  min-width: 0;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- 지원금 목록 ---- */
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.benefit-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  min-width: 0;
+  padding: 18px 0;
+  border: 0;
+  border-bottom: 1px solid var(--neutral);
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.benefit-card:last-child {
+  border-bottom: 0;
+}
+
+.benefit-card:active {
+  opacity: 0.6;
+}
+
+.benefit-card-top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.benefit-card-meta {
+  overflow: hidden;
+  color: var(--gray-500);
+  font-size: 14px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.benefit-card-title {
+  margin: 2px 0 0;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.45;
+  letter-spacing: -0.3px;
+}
+
+.benefit-card-summary {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  color: var(--gray-700);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.skeleton {
+  height: 104px;
+  margin: 8px 0;
+  border-radius: var(--rounded-md);
+  background: var(--neutral);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.skeleton.tall {
+  height: 320px;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.empty {
+  padding: 48px 0;
+  color: var(--gray-700);
+  text-align: center;
+}
+
+.empty p {
+  margin: 4px 0;
+}
+
+.list-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--space-sm);
+}
+
+.count {
+  color: var(--gray-700);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* 스위치 */
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--gray-700);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.toggle input {
+  position: relative;
+  width: 40px;
+  height: 24px;
+  margin: 0;
+  border-radius: 999px;
+  background: var(--gray-200);
+  appearance: none;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.toggle input::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  transition: transform 0.15s ease;
+}
+
+.toggle input:checked {
+  background: var(--ink);
+}
+
+.toggle input:checked::after {
+  transform: translateX(16px);
+}
+
+/* ---- 홈 ---- */
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-lg) 0 var(--space-md);
+}
+
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 24px;
+  border-radius: var(--rounded-md);
+  background: var(--neutral);
+  list-style: none;
+}
+
+.feature-list li {
+  display: flex;
+  gap: 12px;
+  color: var(--gray-700);
+}
+
+.feature-list strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.feature-num {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 24px;
+  text-align: center;
+}
+
+.profile-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--gray-700);
+  font-size: 15px;
+}
+
+/* ---- 검색 ---- */
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 0 6px 0 var(--space-md);
+  border-radius: var(--rounded-md);
+  background: var(--neutral);
+}
+
+.search-bar:focus-within {
+  box-shadow: 0 0 0 2px var(--ink) inset;
+}
+
+.search-bar input {
+  flex: 1;
+  min-width: 0;
+  padding: 14px 0;
+  border: 0;
+  background: transparent;
+  font-size: 16px;
+  outline: none;
+}
+
+.search-bar input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.search-bar > svg {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--gray-500);
+}
+
+.search-clear {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  margin-right: 2px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--gray-400);
+  color: var(--white);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.search-submit {
+  padding: 8px 14px;
+  border: 0;
+  border-radius: var(--rounded-sm);
+  background: var(--ink);
+  color: var(--white);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.search-submit:disabled {
+  background: transparent;
+  color: var(--gray-400);
+  cursor: default;
+}
+
+.suggest {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ---- 마감 임박 ---- */
+.segmented {
+  display: flex;
+  padding: 4px;
+  border-radius: var(--rounded-md);
+  background: var(--neutral);
+}
+
+.segmented button {
+  flex: 1;
+  padding: 8px 0;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--gray-500);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.segmented button.on {
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* ---- 내 조건 폼 ---- */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.field-label {
+  color: var(--gray-700);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.field-label em {
+  margin-left: 6px;
+  color: var(--gray-500);
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 14px var(--space-md);
+  border: 0;
+  border-radius: var(--rounded-md);
+  background: var(--neutral);
+  font-size: 17px;
+  font-weight: 600;
+  outline: none;
+  appearance: none;
+}
+
+.field select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%238B95A1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-position: right 18px center;
+  background-repeat: no-repeat;
+}
+
+.field input:focus,
+.field select:focus {
+  box-shadow: 0 0 0 2px var(--ink) inset;
+}
+
+.field input::placeholder {
+  color: var(--gray-400);
+  font-weight: 500;
+}
+
+/* ---- 상세 ---- */
+.back {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  margin-left: -8px;
+  padding: 8px;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.detail-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.text-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px 0;
+  border-top: 1px solid var(--neutral);
+}
+
+.text-section h2 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.text-section p {
+  margin: 0;
+  color: var(--gray-700);
+  font-size: 16px;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+.disclaimer {
+  margin: 0;
+  padding: var(--space-md);
+  border-radius: var(--rounded-md);
+  background: var(--neutral);
+  color: var(--gray-500);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* ---- 하단 탭바 ---- */
+.tabbar {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  z-index: 20;
+  display: flex;
+  width: 100%;
+  max-width: var(--app-max);
+  min-height: calc(var(--tabbar-h) + var(--safe-bottom));
+  padding: 4px 8px var(--safe-bottom);
+  border-top: 1px solid var(--neutral);
+  background: var(--white);
+  transform: translateX(-50%);
+}
+
+.tabbar button {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 0;
+  border: 0;
+  background: none;
+  color: var(--gray-400);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tabbar button.on {
+  color: var(--ink);
+}
+
+.tabbar svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* ================= 반응형 ================= */
+
+/* 마우스가 있는 기기에서만 hover 효과 (터치에서 눌린 채로 남지 않게) */
+@media (hover: hover) {
+  .benefit-card:hover .benefit-card-title {
+    color: var(--primary);
+  }
+
+  .chip:hover:not(.chip-on) {
+    background: var(--gray-200);
+  }
+}
+
+/* 작은 폰 (iPhone SE 1세대, 갤럭시 폴드 접힘 등 ~359px) */
+@media (max-width: 359px) {
+  .title {
+    font-size: 22px;
+  }
+
+  .finance-card {
+    padding: 18px 20px;
+  }
+
+  .finance-card-value {
+    font-size: 28px;
+  }
+
+  .segmented button,
+  .chip {
+    font-size: 14px;
+  }
+
+  .chip {
+    padding: 8px 12px;
+  }
+
+  .amount-row dt,
+  .amount-row dd {
+    font-size: 14px;
+  }
+
+  .search-bar input {
+    font-size: 16px; /* 16px 미만이면 iOS가 입력 시 화면을 확대한다 */
+  }
+}
+
+/* 세로가 짧은 폰 (~700px): 목록이 첫 화면에 보이도록 위쪽을 압축 */
+@media (max-height: 700px) {
+  .screen {
+    gap: 12px;
+  }
+
+  .screen-header {
+    padding: 12px 0 4px;
+  }
+
+  .hero {
+    padding: var(--space-md) 0 var(--space-sm);
+  }
+
+  .finance-card {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 10px;
+    padding: 16px 20px;
+  }
+
+  .finance-card-label {
+    flex: 1 0 100%;
+  }
+
+  .finance-card-value {
+    font-size: 26px;
+  }
+
+  .feature-list {
+    gap: 8px;
+    padding: 20px;
+  }
+}
+
+/* 가로로 눕힌 폰: 고정 CTA가 화면을 가리지 않게 본문 끝에 둔다 */
+@media (orientation: landscape) and (max-height: 500px) {
+  .bottom-cta,
+  .detail .bottom-cta {
+    position: static;
+    max-width: none;
+    margin-top: var(--space-sm);
+    padding: 0;
+    background: none;
+    transform: none;
+  }
+
+  .app,
+  .app.has-tabbar {
+    padding-bottom: calc(var(--tabbar-h) + var(--space-lg) + var(--safe-bottom));
+  }
+
+  .app:not(.has-tabbar) {
+    padding-bottom: calc(var(--space-lg) + var(--safe-bottom));
+  }
+
+  .display {
+    font-size: 36px;
+  }
+
+  .tabbar button {
+    flex-direction: row;
+    justify-content: center;
+    gap: 6px;
+  }
+}
+
+/* 태블릿·데스크톱 (768px~): 앱 기둥을 넓히고 목록은 2열 */
+@media (min-width: 768px) {
+  .screen-header {
+    padding-top: var(--space-lg);
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--space-lg);
+  }
+
+  .benefit-card:nth-last-child(2):nth-child(odd) {
+    border-bottom: 0;
+  }
+
+  .form,
+  .feature-list {
+    max-width: 560px;
+  }
+
+  .detail .screen-header,
+  .detail .text-section p {
+    max-width: 600px;
+  }
+
+  .tabbar {
+    justify-content: center;
+  }
+
+  .tabbar button {
+    flex: 0 1 140px;
+  }
+}

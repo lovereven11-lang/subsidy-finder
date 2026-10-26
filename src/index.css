@@ -1,0 +1,97 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+
+:root {
+  /* colors */
+  --primary: #0064ff;
+  --primary-weak: #e8f1ff;
+  --ink: #191f28;
+  --gray-700: #4e5968;
+  --gray-500: #8b95a1;
+  --gray-400: #b0b8c1;
+  --gray-200: #e5e8eb;
+  --neutral: #f2f4f6;
+  --white: #ffffff;
+  --red: #f04452;
+  --red-weak: #ffeef0;
+
+  /* rounded */
+  --rounded-sm: 8px;
+  --rounded-md: 16px;
+  --rounded-lg: 28px;
+
+  /* spacing */
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 28px;
+
+  /* layout: 화면 폭에 따라 좌우 여백과 앱 최대 폭이 달라진다 */
+  --gutter: clamp(16px, 5.3vw, 24px);
+  --app-max: 480px;
+  --tabbar-h: 60px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+
+  font-family:
+    "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic",
+    sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--ink);
+  color-scheme: light;
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* 한국어는 어절 단위로 줄바꿈 (긴 URL·영문은 넘치지 않게 끊기) */
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --app-max: 720px;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--white);
+  overflow-x: hidden;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+#root {
+  display: block;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* 폰보다 넓은 화면: 가운데 앱 기둥 + 회색 바깥 */
+@media (min-width: 481px) {
+  body {
+    background-color: var(--neutral);
+  }
+
+  #root {
+    max-width: var(--app-max);
+    margin: 0 auto;
+    background-color: var(--white);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.03);
+  }
+}
